@@ -15,4 +15,5 @@ type Req_Shop struct {
 	Title   string `json:"ShopTitle" binding:"required"`
 	Phone   string `json:"ShopPhone" binding:"required"`
 	Address string `json:"ShopAddress" binding:"required"`
+	UserId  int    `json:"UserId" binding:"required"`
 }

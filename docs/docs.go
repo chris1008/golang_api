@@ -78,6 +78,39 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/shops/{user_id}": {
+            "get": {
+                "tags": [
+                    "Shops"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user_id",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/routers.Req_Shop"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\":\"失敗\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/users": {
             "get": {
                 "description": "GetAllUser",
@@ -202,7 +235,8 @@ const docTemplate = `{
             "required": [
                 "ShopAddress",
                 "ShopPhone",
-                "ShopTitle"
+                "ShopTitle",
+                "UserId"
             ],
             "properties": {
                 "ShopAddress": {
@@ -213,6 +247,9 @@ const docTemplate = `{
                 },
                 "ShopTitle": {
                     "type": "string"
+                },
+                "UserId": {
+                    "type": "integer"
                 }
             }
         },

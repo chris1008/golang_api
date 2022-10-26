@@ -19,4 +19,5 @@ func AddShopRouter(r *gin.RouterGroup) {
 	shop := r.Group("/shops")
 	shop.POST("/", routers.AddShop)
 	shop.DELETE("/:id", routers.DeleteShop)
+	shop.GET("/:user_id", routers.GetShopByUserId)
 }

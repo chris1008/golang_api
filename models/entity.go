@@ -12,8 +12,8 @@ import (
 
 type User struct {
 	Id       int    `json:"UserId" binding:"omitempty" gorm:"primary_key;auto_increment;not_null"`
-	Name     string `json:"UserName" binding:"required,gt=5"`
-	Password string `json:"UserPassword" binding:"required,min=4,max=20"`
+	Name     string `json:"UserName" binding:"gt=5"`
+	Password string `json:"UserPassword" binding:"min=4,max=20"`
 	Email    string `json:"UserEmail" binding:"required"`
 	// Shops    []Shop `gorm:"foreignKey:User_Id"`
 }
@@ -23,6 +23,7 @@ type Shop struct {
 	Title   string `json:"ShopTitle" binding:"required"`
 	Phone   string `json:"ShopPhone" binding:"required"`
 	Address string `json:"ShopAddress" binding:"required"`
+	UserId  int    `json:"UserId" binding:"required"`
 	// User_Id int
 }
 

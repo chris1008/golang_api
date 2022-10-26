@@ -7,10 +7,13 @@ definitions:
         type: string
       ShopTitle:
         type: string
+      UserId:
+        type: integer
     required:
     - ShopAddress
     - ShopPhone
     - ShopTitle
+    - UserId
     type: object
   routers.Req_UserRegister:
     properties:
@@ -89,6 +92,27 @@ paths:
           description: Conflict
           schema:
             $ref: '#/definitions/routers.SuccessMsg'
+      tags:
+      - Shops
+  /v1/shops/{user_id}:
+    get:
+      parameters:
+      - description: user_id
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/routers.Req_Shop'
+            type: array
+        "400":
+          description: '{"msg":"失敗"}'
+          schema:
+            type: string
       tags:
       - Shops
   /v1/users:

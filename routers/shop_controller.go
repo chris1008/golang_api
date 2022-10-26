@@ -3,6 +3,7 @@ package routers
 import (
 	_ "golang_api/docs"
 	"golang_api/models"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -44,4 +45,20 @@ func DeleteShop(c *gin.Context) {
 		c.JSON(http.StatusConflict, msg)
 	}
 
+}
+
+// @Tags Shops
+// @Param user_id path int true "user_id"
+// @Success 200 {array} Req_Shop
+// @Failure 400 {string} json "{"msg":"失敗"}"
+// @Router /v1/shops/{user_id}  [get]
+// Add Shop
+func GetShopByUserId(c *gin.Context) {
+	shop := models.GetShopByUserId(c.Param("user_id"))
+	if shop == nil {
+		c.JSON(http.StatusNotFound, "Error")
+		return
+	}
+	log.Println("Shop -> ", shop)
+	c.JSON(http.StatusOK, shop)
 }
