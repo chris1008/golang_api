@@ -1,0 +1,169 @@
+definitions:
+  routers.Req_Shop:
+    properties:
+      ShopAddress:
+        type: string
+      ShopPhone:
+        type: string
+      ShopTitle:
+        type: string
+    required:
+    - ShopAddress
+    - ShopPhone
+    - ShopTitle
+    type: object
+  routers.Req_UserRegister:
+    properties:
+      UserEmail:
+        type: string
+      UserName:
+        type: string
+      UserPassword:
+        maxLength: 20
+        minLength: 4
+        type: string
+    required:
+    - UserEmail
+    type: object
+  routers.SuccessMsg:
+    properties:
+      isSuccess:
+        type: boolean
+    type: object
+  routers.UserList:
+    properties:
+      UserEmail:
+        type: string
+      UserId:
+        type: integer
+      UserName:
+        type: string
+      UserPassword:
+        maxLength: 20
+        minLength: 4
+        type: string
+    required:
+    - UserEmail
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Swagger API.
+  title: Gin Swagger Demo
+  version: "1.0"
+paths:
+  /v1/shops:
+    post:
+      parameters:
+      - description: shop
+        in: body
+        name: Req_Shop
+        required: true
+        schema:
+          $ref: '#/definitions/routers.Req_Shop'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/routers.Req_Shop'
+        "400":
+          description: '{"msg":"失敗"}'
+          schema:
+            type: string
+      tags:
+      - Shops
+  /v1/shops/{id}:
+    delete:
+      parameters:
+      - description: 商店id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routers.SuccessMsg'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/routers.SuccessMsg'
+      tags:
+      - Shops
+  /v1/users:
+    get:
+      description: GetAllUser
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/routers.UserList'
+            type: array
+        "400":
+          description: '{"msg":"失敗"}'
+          schema:
+            type: string
+      summary: 取得所有使用者
+      tags:
+      - Users
+    post:
+      parameters:
+      - description: 註冊
+        in: body
+        name: Req_UserRegister
+        required: true
+        schema:
+          $ref: '#/definitions/routers.Req_UserRegister'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/routers.SuccessMsg'
+        "400":
+          description: '{"msg":"失敗"}'
+          schema:
+            type: string
+      tags:
+      - Users
+  /v1/users/{id}:
+    get:
+      parameters:
+      - description: 使用者id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routers.UserList'
+        "400":
+          description: '{"msg":"失敗"}'
+          schema:
+            type: string
+      tags:
+      - Users
+  /v1/users/login:
+    post:
+      parameters:
+      - description: email
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: password
+        in: formData
+        name: password
+        required: true
+        type: string
+      responses:
+        "409":
+          description: '{"msg":"Error"}'
+          schema:
+            type: string
+      tags:
+      - Users
+swagger: "2.0"

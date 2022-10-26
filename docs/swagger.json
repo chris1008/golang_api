@@ -1,0 +1,261 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Swagger API.",
+        "title": "Gin Swagger Demo",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "paths": {
+        "/v1/shops": {
+            "post": {
+                "tags": [
+                    "Shops"
+                ],
+                "parameters": [
+                    {
+                        "description": "shop",
+                        "name": "Req_Shop",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routers.Req_Shop"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/routers.Req_Shop"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\":\"失敗\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/shops/{id}": {
+            "delete": {
+                "tags": [
+                    "Shops"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "商店id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/routers.SuccessMsg"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/routers.SuccessMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/users": {
+            "get": {
+                "description": "GetAllUser",
+                "tags": [
+                    "Users"
+                ],
+                "summary": "取得所有使用者",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/routers.UserList"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\":\"失敗\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "description": "註冊",
+                        "name": "Req_UserRegister",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routers.Req_UserRegister"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/routers.SuccessMsg"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\":\"失敗\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "email",
+                        "name": "email",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "409": {
+                        "description": "{\"msg\":\"Error\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "使用者id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/routers.UserList"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\":\"失敗\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "routers.Req_Shop": {
+            "type": "object",
+            "required": [
+                "ShopAddress",
+                "ShopPhone",
+                "ShopTitle"
+            ],
+            "properties": {
+                "ShopAddress": {
+                    "type": "string"
+                },
+                "ShopPhone": {
+                    "type": "string"
+                },
+                "ShopTitle": {
+                    "type": "string"
+                }
+            }
+        },
+        "routers.Req_UserRegister": {
+            "type": "object",
+            "required": [
+                "UserEmail"
+            ],
+            "properties": {
+                "UserEmail": {
+                    "type": "string"
+                },
+                "UserName": {
+                    "type": "string"
+                },
+                "UserPassword": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 4
+                }
+            }
+        },
+        "routers.SuccessMsg": {
+            "type": "object",
+            "properties": {
+                "isSuccess": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "routers.UserList": {
+            "type": "object",
+            "required": [
+                "UserEmail"
+            ],
+            "properties": {
+                "UserEmail": {
+                    "type": "string"
+                },
+                "UserId": {
+                    "type": "integer"
+                },
+                "UserName": {
+                    "type": "string"
+                },
+                "UserPassword": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 4
+                }
+            }
+        }
+    }
+}
