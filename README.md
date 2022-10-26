@@ -83,6 +83,10 @@ type 名稱 struct {
 ## API線上網址(已部屬至GCP)
 <https://golangapi-njqijcw6la-df.a.run.app/swagger/index.html>
 
+## 未來展望 TO-DO
+* 登入功能加入 JWT、Redis 
+* 製作前端畫面
+
 
 
 
